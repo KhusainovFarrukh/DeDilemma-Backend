@@ -1,0 +1,21 @@
+
+G
+Product-service/HELP.md,6/7/674e448417509dbf0795ea7e73b1bf5894996685
+ˆ
+XProduct-service/src/main/kotlin/uz/dedilemma/productservice/ProductServiceApplication.kt,3/0/30b26d9dc28ff06dd83b4a90f8254481f66a6d26
+O
+Product-service/settings.gradle,7/2/7232e4e66159698fcbd4865d65b9316104a016d0
+O
+Product-Service/settings.gradle,d/5/d50751b2df0891acfc3ea84f42d9db8378e57b13
+ˆ
+XProduct-Service/src/main/kotlin/uz/dedilemma/productservice/ProductServiceApplication.kt,5/f/5f9f5472985d257829b1dedb53520d0f23d72631
+F
+Rating-Service/HELP.md,c/5/c5861b95a67aff478935d95ca0ad101dd28aa9b7
+…
+Urating-service/src/main/java/uz/dedilemma/ratingservice/RatingServiceApplication.java,2/5/25e8385cfbadd5b1ebd96e78b017266285a522e4
+ˆ
+Xproduct-service/src/main/kotlin/uz/dedilemma/productservice/ProductServiceApplication.kt,d/c/dca34a5b8abe50a74dfd9822968eddfa7be7b82c
+C
+api-gateway/pom.xml,2/b/2bfa2b108f2439e99e004f4085b58c22cf995f73
+|
+Lapi-gateway/src/main/java/uz/dedilemma/apigateway/ApiGatewayApplication.java,6/1/61a28340a713f48a36101fd098a43fa2344616f0
