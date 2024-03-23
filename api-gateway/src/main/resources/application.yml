@@ -1,10 +1,10 @@
 spring:
   application.name: api-gateway
+  profiles.default: local
   cloud.config.discovery:
     enabled: true
     service-id: config-server
-  config:
-    import: "optional:configserver:"
+  config.import: "optional:configserver:"
 
 eureka.client.serviceUrl:
   defaultZone: ${EUREKA_SERVER_URL:http://localhost:5555}/eureka/
