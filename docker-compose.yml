@@ -1,0 +1,122 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database for Product Service
+  dedilemma-product-service-db:
+    container_name: dedilemma-product-service-db
+    image: postgres:13
+    ports:
+      - "5401:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: product_service_db
+    networks:
+      - dedilemma-backend-network
+    volumes:
+      - dedilemma-product-service-db-data:/var/lib/postgresql/data
+
+  # PostgreSQL Database for Rating Service
+  dedilemma-rating-service-db:
+    container_name: dedilemma-rating-service-db
+    image: postgres:13
+    ports:
+      - "5402:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: rating_service_db
+    networks:
+      - dedilemma-backend-network
+    volumes:
+      - dedilemma-rating-service-db-data:/var/lib/postgresql/data
+
+  # Discovery Server
+  dedilemma-discovery-server:
+    container_name: dedilemma-discovery-server
+    build:
+      context: ./discovery-server
+      dockerfile: Dockerfile
+    ports:
+      - "5555:5555"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      EUREKA_SERVER_URL: http://dedilemma-discovery-server:5555
+    networks:
+      - dedilemma-backend-network
+
+  # Config Server
+  dedilemma-config-server:
+    container_name: dedilemma-config-server
+    depends_on:
+      - dedilemma-discovery-server
+    build:
+      context: ./config-server
+      dockerfile: Dockerfile
+    ports:
+      - "5050:5050"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      EUREKA_SERVER_URL: http://dedilemma-discovery-server:5555
+    networks:
+      - dedilemma-backend-network
+
+  # API Gateway
+  dedilemma-api-gateway:
+    container_name: dedilemma-api-gateway
+    depends_on:
+      - dedilemma-discovery-server
+      - dedilemma-config-server
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      EUREKA_SERVER_URL: http://dedilemma-discovery-server:5555
+    networks:
+      - dedilemma-backend-network
+
+  # Product Service
+  dedilemma-product-service:
+    container_name: dedilemma-product-service
+    depends_on:
+      - dedilemma-discovery-server
+      - dedilemma-config-server
+      - dedilemma-product-service-db
+    build:
+      context: ./product-service
+      dockerfile: Dockerfile
+    ports:
+      - "5001:5001"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      EUREKA_SERVER_URL: http://dedilemma-discovery-server:5555
+    networks:
+      - dedilemma-backend-network
+
+  # Rating Service
+  dedilemma-rating-service:
+    container_name: dedilemma-rating-service
+    depends_on:
+      - dedilemma-discovery-server
+      - dedilemma-config-server
+      - dedilemma-rating-service-db
+    build:
+      context: ./rating-service
+      dockerfile: Dockerfile
+    ports:
+      - "5002:5002"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      EUREKA_SERVER_URL: http://dedilemma-discovery-server:5555
+    networks:
+      - dedilemma-backend-network
+
+networks:
+  dedilemma-backend-network:
+
+volumes:
+  dedilemma-product-service-db-data:
+  dedilemma-rating-service-db-data:
