@@ -86,7 +86,7 @@ services:
       - dedilemma-config-server
       - dedilemma-product-service-db
     build:
-      context: ./product-services
+      context: ./product-service
       dockerfile: Dockerfile
     ports:
       - "5001:5001"
