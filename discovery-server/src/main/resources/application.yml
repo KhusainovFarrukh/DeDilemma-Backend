@@ -6,8 +6,3 @@ eureka.client:
   register-with-eureka: false
   serviceUrl:
     defaultZone: ${EUREKA_SERVER_URL:http://localhost:5555}/eureka/
-
----
-spring.config.activate.on-profile: docker
-eureka.client.serviceUrl:
-  defaultZone: http://dedilemma-discovery-server:5555/eureka/
