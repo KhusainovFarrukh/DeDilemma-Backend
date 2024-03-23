@@ -1,14 +1,14 @@
 # Build stage
-FROM openjdk:17-alpine AS build
+FROM maven:3.8.4-openjdk-17 AS build
 WORKDIR /app
 COPY . .
 # Exclude test task from build (for now)
-RUN ./gradlew clean build -x test
+RUN mvn clean package -DskipTests
 
 # Run stage
 FROM openjdk:17-alpine
 WORKDIR /app
-COPY --from=build /app/build/libs/*.jar app.jar
+COPY --from=build /app/target/*.jar app.jar
 
 # Create a user and group
 RUN addgroup -S config_server_group && adduser -S config_server_user -G config_server_group
