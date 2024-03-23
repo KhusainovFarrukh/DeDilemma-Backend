@@ -4,3 +4,5 @@ spring.application.name: discovery-server
 eureka.client:
   fetch-registry: false
   register-with-eureka: false
+  serviceUrl:
+    defaultZone: ${EUREKA_SERVER_URL:http://localhost:5555}/eureka/
