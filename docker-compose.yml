@@ -74,7 +74,6 @@ services:
       - "5000:5000"
     environment:
       SPRING_PROFILES_ACTIVE: docker
-      EUREKA_SERVER_URL: http://dedilemma-discovery-server:5555
     networks:
       - dedilemma-backend-network
 
